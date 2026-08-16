@@ -203,6 +203,7 @@ impl Display for NonogramBoard {
     }
 }
 
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum LineDir { Row, Col }
 impl LineDir {

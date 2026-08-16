@@ -2,10 +2,12 @@ use crate::{BoardIdx, LineDir, LineRange, NonogramBoard, NonogramClues, Nonogram
 use itertools::Itertools;
 use std::ops::{Add, Index, IndexMut, Range};
 use std::{cmp, mem};
+use serde::{Deserialize, Serialize};
 
 type LineIdx = usize;
 type ClueIdx = usize;
 
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone)]
 pub struct GlobalClueIdx(LineDir, LineIdx, ClueIdx);
 impl GlobalClueIdx {
