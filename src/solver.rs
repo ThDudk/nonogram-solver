@@ -1,6 +1,5 @@
 use crate::{BoardIdx, LineDir, LineRange, NonogramBoard, NonogramClues, NonogramLine, TileState};
 use itertools::Itertools;
-use ndarray::Array2;
 use std::ops::{Add, Index, IndexMut, Range};
 use std::{cmp, mem};
 
@@ -8,15 +7,15 @@ type LineIdx = usize;
 type ClueIdx = usize;
 
 #[derive(PartialEq, Eq, Debug, Clone)]
-struct GlobalClueIdx(LineDir, LineIdx, ClueIdx);
+pub struct GlobalClueIdx(LineDir, LineIdx, ClueIdx);
 impl GlobalClueIdx {
-    fn line_dir(&self) -> LineDir {
+    pub fn line_dir(&self) -> LineDir {
         self.0
     }
-    fn line_idx(&self) -> LineIdx {
+    pub fn line_idx(&self) -> LineIdx {
         self.1
     }
-    fn clue_idx(&self) -> ClueIdx {
+    pub fn clue_idx(&self) -> ClueIdx {
         self.2
     }
 }
@@ -1171,6 +1170,7 @@ mod tests {
         use super::*;
         use crate::random;
         use crate::TileState::{Crossed, Filled};
+        use ndarray::Array2;
 
         #[rstest]
         #[case((5, 5), 1000)]
