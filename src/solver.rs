@@ -9,7 +9,7 @@ type ClueIdx = usize;
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone)]
-pub struct GlobalClueIdx(LineDir, LineIdx, ClueIdx);
+pub struct GlobalClueIdx(pub LineDir, pub LineIdx, pub ClueIdx);
 impl GlobalClueIdx {
     pub fn line_dir(&self) -> LineDir {
         self.0

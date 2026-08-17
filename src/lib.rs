@@ -43,9 +43,10 @@ pub use random::random_board;
 use std::fmt::{Display, Formatter, Write};
 use ndarray::{Array2, ArrayBase, ArrayView1, Ix1, Ix2, OwnedRepr};
 use std::ops::{Index, IndexMut, Range};
-
+use std::process::Output;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
+use crate::solver::GlobalClueIdx;
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(PartialEq, Eq, Debug, Clone)]
@@ -59,6 +60,29 @@ impl NonogramClues {
     }
     pub fn col(&self, idx: usize) -> &Vec<usize> {
         &self.col_clues[idx]
+    }
+    pub fn clues(&self) -> impl Iterator<Item = (GlobalClueIdx, usize)> {
+        let rows = self.row_clues.iter()
+            .enumerate()
+            .flat_map(|(row_idx, row)| {
+                row.iter()
+                    .enumerate()
+                    .map(move |(clue_idx, clue)| {
+                        (GlobalClueIdx(LineDir::Row, row_idx, clue_idx), *clue)
+                    })
+            });
+
+        let cols = self.row_clues.iter()
+            .enumerate()
+            .flat_map(|(col_idx, col)| {
+                col.iter()
+                    .enumerate()
+                    .map(move |(clue_idx, clue)| {
+                        (GlobalClueIdx(LineDir::Col, col_idx, clue_idx), *clue)
+                    })
+            });
+
+        rows.chain(cols)
     }
 
     fn count_clues(line: NonogramLine) -> Vec<usize> {
