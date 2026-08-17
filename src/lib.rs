@@ -228,8 +228,8 @@ impl Display for NonogramBoard {
 }
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum LineDir { Row, Col }
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
+pub enum LineDir { #[default] Row, Col }
 impl LineDir {
     pub fn perp(&self) -> LineDir {
         match self {
