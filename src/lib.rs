@@ -121,7 +121,7 @@ pub enum TileState {
 }
 
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
-#[derive(Eq, PartialEq, Debug, Clone)]
+#[derive(Eq, PartialEq, Debug, Clone, Default)]
 pub struct NonogramBoard(Array2<TileState>);
 impl NonogramBoard { // TODO make NonogramBoard more strict in the size of the board (should be in u32)
     pub fn empty_square(side_len: usize) -> Self {
