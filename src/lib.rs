@@ -72,7 +72,7 @@ impl NonogramClues {
                     })
             });
 
-        let cols = self.row_clues.iter()
+        let cols = self.col_clues.iter()
             .enumerate()
             .flat_map(|(col_idx, col)| {
                 col.iter()
